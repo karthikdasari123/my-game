@@ -1,0 +1,48 @@
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+const config = {
+  type: Phaser.AUTO,
+  width: 800,
+  height: 600,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 300 },
+      debug: false
+    }
+  },
+  scene: {
+    preload: preload,
+    create: create,
+    update: update
+  }
+};
+
+const game = new Phaser.Game(config);
+function preload() {
+  // Load assets here
+}
+
+function create() {
+  // Create game objects and set up the game environment here
+}
+
+function update() {
+  // Update game objects and handle user input here
+}
+function preload() {
+  this.load.image('fireExplosion', 'assets/fireExplosion.png');
+}
+function create() {
+  this.fireExplosion = this.add.particles('fireExplosion');
+}
+function update() {
+  if (this.input.activePointer.isDown) {
+    this.fireExplosion.explode(10, {
+      x: this.input.activePointer.x,
+      y: this.input.activePointer.y,
+      type: 'fire',
+      lifespan: 500,
+      scale: { start: 1, end: 0 }
+    });
+  }
+}
